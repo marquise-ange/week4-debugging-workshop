@@ -28,11 +28,15 @@ function getDiscount(subtotal) {
 }
 
 
+
 function getTotal(items) {
     const subtotal = getSubtotal(items);
     const discount = getDiscount(subtotal);
-    const total = subtotal - discount;
+
+    // Bug fix: Convert the discount percentage into a money amount.
+    // Subtracting 0.1 directly would remove only 10 cents, not 10%.
+    const total = subtotal - subtotal * discount;
+
     return total;
 }
-
 console.log(getTotal(cart));
